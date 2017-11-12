@@ -36,7 +36,6 @@ public class InMemoryMovieServiceTest {
 	public void getAllGenres() {
 		List<Genre> genres = movieService.getAllGenres();
 		assertEquals(24, genres.size());
-		genres.forEach(g -> System.out.println(g));
 	}
 
 	@Test

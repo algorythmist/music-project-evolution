@@ -1,5 +1,6 @@
 package com.tecacet.movie.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 import com.tecacet.movie.model.Genre;
 import com.tecacet.movie.model.Movie;
 import com.tecacet.movie.model.Person;
+import com.tecacet.movie.parser.MovieParser;
 
 /**
  * In Memory implementation of the MovieService
@@ -107,6 +109,10 @@ public class InMemoryMovieService implements MovieService {
 			return moviesDirected;
 		}
 
+	}
+	
+	public InMemoryMovieService(MovieParser movieParser) throws IOException {
+		this(movieParser.parse("moviedata.json"));
 	}
 
 	public InMemoryMovieService(List<? extends Movie> allMovies) {
