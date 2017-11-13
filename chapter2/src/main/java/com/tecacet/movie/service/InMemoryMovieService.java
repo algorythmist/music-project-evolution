@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.tecacet.movie.model.Genre;
 import com.tecacet.movie.model.Movie;
 import com.tecacet.movie.model.Person;
@@ -21,6 +24,8 @@ import com.tecacet.movie.parser.MovieParser;
  */
 public class InMemoryMovieService implements MovieService {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private final List<Movie> movies = new ArrayList<>();
 	private final Map<String, EnrichedPerson> personsByName = new TreeMap<>();
 	private final Map<String, EnrichedGenre> genresByName = new TreeMap<>();
@@ -116,6 +121,7 @@ public class InMemoryMovieService implements MovieService {
 	}
 
 	public InMemoryMovieService(List<? extends Movie> allMovies) {
+		logger.info("Registering {} movies with the service", allMovies.size());
 		for (Movie movie : allMovies) {
 			movies.add(movie);
 			registerActors(movie);

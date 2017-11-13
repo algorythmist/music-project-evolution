@@ -9,6 +9,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.tecacet.movie.model.Movie;
 import com.tecacet.movie.model.Person;
 
@@ -20,6 +23,7 @@ import com.tecacet.movie.model.Person;
  */
 public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final MovieService movieService;
 
 	public ExhaustiveDirectorRatingService(MovieService movieService) {
@@ -31,6 +35,7 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 		Comparator<Director> ratingComparator = Comparator.comparing(Director::getRating).reversed();
 		Comparator<Director> movieComparator = Comparator.comparing(Director::getMovies).reversed();
 		Queue<Director> directors = new PriorityQueue<>(ratingComparator.thenComparing(movieComparator));
+		logger.info("Comparing {} directors", directors.size());
 		for (Person person : movieService.getAllDirectors()) {
 			List<Movie> movies = movieService.findMoviesWithDirector(person.getName());
 			if (movies.size() < 3) {
