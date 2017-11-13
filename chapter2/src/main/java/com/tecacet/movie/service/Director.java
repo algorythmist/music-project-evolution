@@ -1,6 +1,7 @@
 package com.tecacet.movie.service;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Director {
 
@@ -14,7 +15,7 @@ public class Director {
 		this.name = name;
 		this.rating = Math.round(rating * 100) / 100.;
 		this.movies = movies;
-		this.genres = genres;
+		this.genres = new TreeSet<>(genres);
 	}
 
 	public String getName() {
