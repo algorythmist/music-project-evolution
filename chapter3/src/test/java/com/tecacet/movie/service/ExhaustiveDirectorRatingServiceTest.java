@@ -7,16 +7,22 @@ import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.tecacet.movie.parser.MovieParser;
+import com.tecacet.movie.config.ApplicationConfiguration;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = { ApplicationConfiguration.class })
 public class ExhaustiveDirectorRatingServiceTest {
+
+	@Autowired
+	private DirectorRatingService ratingService;
 
 	@Test
 	public void findTopDirectors() throws IOException {
-		MovieParser movieParser = new MovieParser();
-		MovieService movieService = new InMemoryMovieService(movieParser);
-		DirectorRatingService ratingService = new ExhaustiveDirectorRatingService(movieService);
 
 		List<Director> directors = ratingService.findTopDirectors(10);
 		assertEquals(10, directors.size());
@@ -34,7 +40,7 @@ public class ExhaustiveDirectorRatingServiceTest {
 		assertEquals(8.50, director.getRating(), 0.01);
 		assertEquals(4, director.getMovies());
 		assertEquals("[Comedy, Drama, Family, Romance, War]", director.getGenres().toString());
-		
+
 	}
 
 }

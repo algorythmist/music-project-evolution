@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tecacet.movie.model.Genre;
 import com.tecacet.movie.model.Movie;
@@ -22,6 +24,7 @@ import com.tecacet.movie.parser.MovieParser;
  * @author dimitri
  *
  */
+@Service
 public class InMemoryMovieService implements MovieService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -116,11 +119,12 @@ public class InMemoryMovieService implements MovieService {
 
 	}
 	
+	@Autowired
 	public InMemoryMovieService(MovieParser movieParser) throws IOException {
 		this(movieParser.parse("moviedata.json"));
 	}
 
-	public InMemoryMovieService(List<? extends Movie> allMovies) {
+	private InMemoryMovieService(List<? extends Movie> allMovies) {
 		logger.info("Registering {} movies with the service", allMovies.size());
 		for (Movie movie : allMovies) {
 			movies.add(movie);

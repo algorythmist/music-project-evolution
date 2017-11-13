@@ -11,6 +11,8 @@ import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tecacet.movie.model.Movie;
 import com.tecacet.movie.model.Person;
@@ -21,11 +23,13 @@ import com.tecacet.movie.model.Person;
  * @author dimitri
  *
  */
+@Service
 public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final MovieService movieService;
 
+	@Autowired
 	public ExhaustiveDirectorRatingService(MovieService movieService) {
 		super();
 		this.movieService = movieService;

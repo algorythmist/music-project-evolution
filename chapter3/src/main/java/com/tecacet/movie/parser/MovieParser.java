@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author dimitri
  *
  */
+@Component
 public class MovieParser {
 
 	public List<JsonMovie> parse(String filename) throws IOException {
