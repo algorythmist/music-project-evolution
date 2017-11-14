@@ -1,6 +1,7 @@
 package com.tecacet.movie.jpa.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,12 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.tecacet.movie.domain.Movie;
 
 @Entity
-@Table(name="movie")
+@Table(name = "movie")
 public class EntityMovie implements Movie {
 
 	@Id
@@ -27,7 +31,11 @@ public class EntityMovie implements Movie {
 	private int duration;
 	private Double rating;
 	private String imageUrl;
-	
+
+	@ManyToMany
+	@JoinTable(name = "movie_genre", joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+	private List<EntityGenre> genres = new ArrayList<>();
+
 	public EntityMovie(String title) {
 		super();
 		this.title = title;
@@ -71,8 +79,6 @@ public class EntityMovie implements Movie {
 		return imageUrl;
 	}
 
-	
-	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -121,6 +127,14 @@ public class EntityMovie implements Movie {
 	public List<String> getGenres() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void addGenre(EntityGenre genre) {
+		genres.add(genre);
+	}
+	
+	public List<EntityGenre> getEntityGenres() {
+		return genres;
 	}
 
 }

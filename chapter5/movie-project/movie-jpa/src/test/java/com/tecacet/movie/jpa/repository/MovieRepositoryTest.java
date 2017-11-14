@@ -19,7 +19,7 @@ import com.tecacet.movie.jpa.config.PersistanceConfiguration;
 import com.tecacet.movie.jpa.model.EntityMovie;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes= {PersistanceConfiguration.class})
+@ContextConfiguration(classes = { PersistanceConfiguration.class })
 @Transactional
 public class MovieRepositoryTest {
 
@@ -30,23 +30,23 @@ public class MovieRepositoryTest {
 	public void crudOperations() {
 		List<EntityMovie> movies = movieRepository.findAll();
 		assertTrue(movies.isEmpty());
-		
+
 		EntityMovie movie = new EntityMovie("Elegance");
 		movie.setDuration(189);
 		movie.setReleaseDate(LocalDate.of(2012, 3, 4));
 		movieRepository.save(movie);
 		assertTrue(movie.getId() > 0);
-		
+
 		Optional<EntityMovie> found = movieRepository.findById(movie.getId());
 		assertEquals("Elegance", found.get().getTitle());
-		
+
 		List<EntityMovie> allMovies = movieRepository.findAll();
 		assertEquals(1, allMovies.size());
-		
+
 		movieRepository.delete(movie);
 		allMovies = movieRepository.findAll();
 		assertEquals(0, allMovies.size());
-		
+
 	}
 
 }
