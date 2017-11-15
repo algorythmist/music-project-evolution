@@ -4,6 +4,8 @@ create table genre (
     PRIMARY KEY(id)
 );
 
+create index genre_name_idx on genre(name);
+
 create table movie_genre (
 	id int not null auto_increment,
 	movie_id int not null,

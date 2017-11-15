@@ -83,6 +83,7 @@ public class InMemoryMovieService implements MovieService {
 			return name;
 		}
 
+		@Override
 		public boolean isActor() {
 			return isActor;
 		}
@@ -91,6 +92,7 @@ public class InMemoryMovieService implements MovieService {
 			this.isActor = isActor;
 		}
 
+		@Override
 		public boolean isDirector() {
 			return isDirector;
 		}

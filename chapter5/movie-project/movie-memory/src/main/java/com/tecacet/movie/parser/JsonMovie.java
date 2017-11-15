@@ -32,6 +32,10 @@ public class JsonMovie implements Movie {
 			return name;
 		}
 
+		@Override
+		public String toString() {
+			return name;
+		}
 	}
 
 	@JsonIgnoreProperties(ignoreUnknown = true)

@@ -9,3 +9,6 @@ create table movie (
 	imageUrl varchar(255),
     PRIMARY KEY(id)
 );
+
+
+create index movie_title_idx on movie(title);
