@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.tecacet.movie.domain.Genre;
 import com.tecacet.movie.domain.Movie;
 
 @Entity
@@ -124,17 +125,13 @@ public class EntityMovie implements Movie {
 	}
 
 	@Override
-	public List<String> getGenres() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<? extends Genre> getGenres() {
+		return genres;
 	}
 	
 	public void addGenre(EntityGenre genre) {
 		genres.add(genre);
 	}
 	
-	public List<EntityGenre> getEntityGenres() {
-		return genres;
-	}
-
+	
 }

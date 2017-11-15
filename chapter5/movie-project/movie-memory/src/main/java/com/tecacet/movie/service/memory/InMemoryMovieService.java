@@ -132,8 +132,8 @@ public class InMemoryMovieService implements MovieService {
 	}
 
 	private void registerGenres(Movie movie) {
-		for (String name : movie.getGenres()) {
-			EnrichedGenre genre = findGenre(name);
+		for (Genre g : movie.getGenres()) {
+			EnrichedGenre genre = findGenre(g.getName());
 			genre.addMovie(movie);
 		}
 	}

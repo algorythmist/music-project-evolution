@@ -47,7 +47,7 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 				continue;
 			}
 			Set<String> genres = getGenres(movies);
-			Director director = new Director(person.getName(), opt.getAsDouble(),movies.size(), genres);
+			Director director = new Director(person.getName(), opt.getAsDouble(), movies.size(), genres);
 			directors.add(director);
 		}
 		return toList(directors, top);
@@ -63,7 +63,8 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 	}
 
 	private Set<String> getGenres(List<Movie> movies) {
-		return movies.stream().map(m -> m.getGenres()).flatMap(gl -> gl.stream()).collect(Collectors.toSet());
+		return movies.stream().map(m -> m.getGenres()).flatMap(gl -> gl.stream()).map(g -> g.getName())
+				.collect(Collectors.toSet());
 	}
 
 }

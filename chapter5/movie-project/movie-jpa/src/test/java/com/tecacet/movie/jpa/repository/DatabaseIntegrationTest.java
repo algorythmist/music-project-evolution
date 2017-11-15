@@ -48,7 +48,7 @@ public class DatabaseIntegrationTest {
 		Optional<EntityMovie> optional = movieRepository.findById(movie.getId());
 		EntityMovie found = optional.get();
 		assertEquals("Elegance", found.getTitle());
-		System.out.println(found.getEntityGenres()); //TODO
+		System.out.println(found.getGenres()); //TODO
 		
 		movieRepository.delete(found);
 		

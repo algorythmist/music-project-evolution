@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.tecacet.movie.domain.Genre;
 import com.tecacet.movie.domain.Movie;
 
 /**
@@ -17,6 +19,20 @@ import com.tecacet.movie.domain.Movie;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonMovie implements Movie {
+
+	private class SimpleGenre implements Genre {
+		private final String name;
+
+		public SimpleGenre(String name) {
+			super();
+			this.name = name;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+	}
 
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public class Info {
@@ -117,8 +133,8 @@ public class JsonMovie implements Movie {
 	}
 
 	@Override
-	public List<String> getGenres() {
-		return info.getGenres();
+	public List<? extends Genre> getGenres() {
+		return info.getGenres().stream().map(name -> new SimpleGenre(name)).collect(Collectors.toList());
 	}
 
 	@Override

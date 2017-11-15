@@ -24,6 +24,6 @@ public interface Movie {
 
 	List<String> getDirectors();
 
-	List<String> getGenres();
+	List<? extends Genre> getGenres();
 
 }
