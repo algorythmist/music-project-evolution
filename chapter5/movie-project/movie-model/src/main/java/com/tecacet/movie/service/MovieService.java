@@ -8,19 +8,19 @@ import com.tecacet.movie.domain.Person;
 
 public interface MovieService {
 
-	List<Movie> getAllMovies();
+	List<? extends Movie> getAllMovies();
 
-	List<Person> getAllActors();
+	List<? extends Person> getAllActors();
 
-	List<Person> getAllDirectors();
+	List<? extends Person> getAllDirectors();
 
-	List<Genre> getAllGenres();
+	List<? extends Genre> getAllGenres();
 	
-	List<Movie> findByTitle(String name);
+	List<? extends Movie> findByTitle(String name);
 	
-	List<Movie> findMoviesWithActor(String actorName);
+	List<? extends Movie> findMoviesWithActor(String actorName);
 
-	List<Movie> findMoviesWithDirector(String directorName);
+	List<? extends Movie> findMoviesWithDirector(String directorName);
 	
-	List<Movie> findMoviesInGenre(String genreName);
+	List<? extends Movie> findMoviesInGenre(String genreName);
 }

@@ -27,20 +27,28 @@ public class PersonRepositoryTest {
 	
 	@Test
 	public void test() {
-		EntityPerson person = new EntityPerson("Tom", false, true);
+		EntityPerson person1 = new EntityPerson("Tom", false, true);
+		EntityPerson person2 = new EntityPerson("Dale", true, true);
 
-		personRepository.save(person);
-		assertTrue(person.getId() > 0);
+		personRepository.save(person1);
+		assertTrue(person1.getId() > 0);
+		personRepository.save(person2);
 
-		Optional<EntityPerson> found = personRepository.findById(person.getId());
+		Optional<EntityPerson> found = personRepository.findById(person1.getId());
 		assertEquals("Tom", found.get().getName());
 
 		List<EntityPerson> allPeople = personRepository.findAll();
-		assertEquals(1, allPeople.size());
+		assertEquals(2, allPeople.size());
+		
+		List<EntityPerson> actors = personRepository.findAllActors();
+		System.out.println(actors); //TODO
+		
+		List<EntityPerson> directors = personRepository.findAllDirectors();
+		System.out.println(directors); //TODO
 
-		personRepository.delete(person);
+		personRepository.delete(person1);
 		allPeople = personRepository.findAll();
-		assertEquals(0, allPeople.size());
+		assertEquals(1, allPeople.size());
 	}
 
 }

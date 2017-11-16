@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -40,6 +39,9 @@ public class MovieRepositoryTest {
 
 		Optional<EntityMovie> found = movieRepository.findById(movie.getId());
 		assertEquals("Elegance", found.get().getTitle());
+		
+		List<EntityMovie> byTitle = movieRepository.findByTitleContainingIgnoreCase("elegance");
+		assertEquals(1, byTitle.size());
 
 		List<EntityMovie> allMovies = movieRepository.findAll();
 		assertEquals(1, allMovies.size());

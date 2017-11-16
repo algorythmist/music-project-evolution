@@ -38,7 +38,7 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 		Queue<Director> directors = new PriorityQueue<>(ratingComparator.thenComparing(movieComparator));
 		logger.info("Comparing {} directors", directors.size());
 		for (Person person : movieService.getAllDirectors()) {
-			List<Movie> movies = movieService.findMoviesWithDirector(person.getName());
+			List<? extends Movie> movies = movieService.findMoviesWithDirector(person.getName());
 			if (movies.size() < 3) {
 				continue;
 			}
@@ -58,11 +58,11 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 		return IntStream.range(0, range).mapToObj(i -> directors.remove()).collect(Collectors.toList());
 	}
 
-	private OptionalDouble getAverageRating(List<Movie> movies) {
+	private OptionalDouble getAverageRating(List<? extends Movie> movies) {
 		return movies.stream().filter(m -> m.getRating().isPresent()).mapToDouble(m -> m.getRating().get()).average();
 	}
 
-	private Set<String> getGenres(List<Movie> movies) {
+	private Set<String> getGenres(List<? extends Movie> movies) {
 		return movies.stream().map(m -> m.getGenres()).flatMap(gl -> gl.stream()).map(g -> g.getName())
 				.collect(Collectors.toSet());
 	}

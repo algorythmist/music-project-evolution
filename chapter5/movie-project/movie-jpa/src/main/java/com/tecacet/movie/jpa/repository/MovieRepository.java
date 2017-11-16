@@ -10,4 +10,5 @@ public interface MovieRepository extends CrudRepository<EntityMovie, Long> {
 
 	List<EntityMovie> findAll();
 
+	List<EntityMovie> findByTitleContainingIgnoreCase(String title);
 }
