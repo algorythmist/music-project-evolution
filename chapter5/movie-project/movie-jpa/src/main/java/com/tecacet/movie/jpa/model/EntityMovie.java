@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,10 @@ public class EntityMovie implements Movie {
 	@ManyToMany
 	@JoinTable(name = "movie_genre", joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
 	private List<EntityGenre> genres = new ArrayList<>();
+
+	@ManyToMany
+	@JoinTable(name = "movie_person", joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
+	private List<EntityPerson> persons = new ArrayList<>();
 
 	public EntityMovie(String title) {
 		super();
@@ -112,26 +117,27 @@ public class EntityMovie implements Movie {
 		this.imageUrl = imageUrl;
 	}
 
+	public void addPerson(EntityPerson person) {
+		persons.add(person);
+	}
+
 	@Override
 	public List<String> getActors() {
-		// TODO Auto-generated method stub
-		return null;
+		return persons.stream().filter(EntityPerson::isActor).map(EntityPerson::getName).sorted().collect(Collectors.toList());
 	}
 
 	@Override
 	public List<String> getDirectors() {
-		// TODO Auto-generated method stub
-		return null;
+		return persons.stream().filter(EntityPerson::isDirector).map(EntityPerson::getName).sorted().collect(Collectors.toList());
 	}
 
 	@Override
 	public List<? extends Genre> getGenres() {
 		return genres;
 	}
-	
+
 	public void addGenre(EntityGenre genre) {
 		genres.add(genre);
 	}
-	
-	
+
 }
