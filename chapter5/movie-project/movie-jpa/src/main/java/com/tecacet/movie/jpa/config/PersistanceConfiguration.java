@@ -3,8 +3,8 @@ package com.tecacet.movie.jpa.config;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -19,19 +19,10 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableJpaRepositories(basePackages = { "com.tecacet.movie.jpa.repository" })
 @EnableTransactionManagement
+@ComponentScan(basePackages = "com.tecacet.movie.jpa.service")
 public class PersistanceConfiguration {
 
 	private static final String[] ENTITY_PACKAGES = { "com.tecacet.movie.jpa.model" };
-
-	// TODO
-	@Value("${dataSource.user}")
-	public String datasourceUsername;
-
-	@Value("${dataSource.password}")
-	public String datasourcePassword;
-
-	@Value("${jdbcUrl}")
-	public String datasourceUrl;
 
 	@Bean(destroyMethod = "close")
 	public HikariDataSource dataSource() {
