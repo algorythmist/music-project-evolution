@@ -56,12 +56,11 @@ public class InMemoryMovieService implements MovieService {
 		public String toString() {
 			return name;
 		}
-
 	}
 
 	private class EnrichedPerson implements Person {
 		private final String name;
-
+		
 		private boolean isActor = false;
 		private boolean isDirector = false;
 		private final List<Movie> moviesActed = new ArrayList<>();
@@ -71,7 +70,7 @@ public class InMemoryMovieService implements MovieService {
 			super();
 			this.name = name;
 		}
-
+		
 		@Override
 		public String getName() {
 			return name;
@@ -82,6 +81,7 @@ public class InMemoryMovieService implements MovieService {
 			return name;
 		}
 
+		@Override
 		public boolean isActor() {
 			return isActor;
 		}
@@ -90,6 +90,7 @@ public class InMemoryMovieService implements MovieService {
 			this.isActor = isActor;
 		}
 
+		@Override
 		public boolean isDirector() {
 			return isDirector;
 		}

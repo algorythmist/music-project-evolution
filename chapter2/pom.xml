@@ -18,6 +18,8 @@
 		<mockito.version>2.12.0</mockito.version>
 		<jacoco.version>0.7.9</jacoco.version>
 		<jacoco.coverage.lines>0.90</jacoco.coverage.lines>
+		<maven-javadoc.version>2.10.4</maven-javadoc.version>
+		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 	</properties>
 
 	<dependencies>
@@ -27,7 +29,6 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<!-- logging -->
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -49,6 +50,8 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
+			<!--  <artifactId>slf4j-log4j12</artifactId>  -->
+			<!--  <artifactId>slf4j-jdk14</artifactId>  -->
 			<version>${slf4j.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -100,6 +103,19 @@
 						<phase>verify</phase>
 						<goals>
 							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
