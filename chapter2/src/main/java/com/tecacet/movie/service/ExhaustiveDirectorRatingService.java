@@ -39,6 +39,7 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 		for (Person person : movieService.getAllDirectors()) {
 			List<Movie> movies = movieService.findMoviesWithDirector(person.getName());
 			if (movies.size() < 3) {
+				logger.debug("Skipping director {} because he/she has less than 3 movies", person.getName());
 				continue;
 			}
 			OptionalDouble opt = getAverageRating(movies);
