@@ -6,30 +6,25 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-import com.tecacet.movie.model.Director;
-import com.tecacet.movie.model.Movie;
-import com.tecacet.movie.model.Person;
+import com.tecacet.movie.domain.Director;
+import com.tecacet.movie.domain.Movie;
+import com.tecacet.movie.domain.Person;
 import com.tecacet.movie.service.DirectorRatingService;
 import com.tecacet.movie.service.MovieService;
 
-@Service
-public class ParallelExecutorDirectorRatingService implements DirectorRatingService {
+public class Parallel8DirectorRatingService implements DirectorRatingService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final MovieService movieService;
 
-	public ParallelExecutorDirectorRatingService(MovieService movieService) {
+	public Parallel8DirectorRatingService(MovieService movieService) {
 		this.movieService = movieService;
 	}
 
@@ -42,17 +37,8 @@ public class ParallelExecutorDirectorRatingService implements DirectorRatingServ
 		Queue<Director> priorityQueue = new PriorityBlockingQueue<>(movieService.getAllDirectors().size(),
 				ratingComparator.thenComparing(movieComparator.reversed()));
 
-		ExecutorService executorService = Executors.newFixedThreadPool(10);
-		allDirectors.forEach(
-				person -> executorService.submit(() -> processDirector(person).ifPresent(d -> priorityQueue.add(d))));
-		executorService.shutdown();
-		try {
-			executorService.awaitTermination(1, TimeUnit.MINUTES);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		allDirectors.parallelStream().map(person -> processDirector(person)).filter(o -> o.isPresent())
+				.map(o -> o.get()).forEach(director -> priorityQueue.add(director));
 		return toList(priorityQueue, top);
 	}
 

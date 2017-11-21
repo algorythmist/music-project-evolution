@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.tecacet.movie.model.Director;
 import com.tecacet.movie.model.Movie;
@@ -19,6 +20,7 @@ import com.tecacet.movie.model.Person;
 import com.tecacet.movie.service.DirectorRatingService;
 import com.tecacet.movie.service.MovieService;
 
+@Service
 public class Parallel8DirectorRatingService implements DirectorRatingService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

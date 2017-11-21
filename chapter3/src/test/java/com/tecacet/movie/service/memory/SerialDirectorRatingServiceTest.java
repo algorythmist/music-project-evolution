@@ -18,7 +18,7 @@ import com.tecacet.movie.service.DirectorRatingService;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class })
-public class DirectorRatingServiceTest {
+public class SerialDirectorRatingServiceTest {
 
 	@Autowired
 	private DirectorRatingService ratingService;

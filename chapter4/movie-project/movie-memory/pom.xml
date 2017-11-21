@@ -14,25 +14,53 @@
 
 	<properties>
 		<movie.version>0.0.1-SNAPSHOT</movie.version>
+		<spring.version>5.0.1.RELEASE</spring.version>
 		<jackson.version>2.9.2</jackson.version>
+		<mockito.version>2.12.0</mockito.version>
+		<jacoco.version>0.7.9</jacoco.version>
 		<jacoco.coverage.lines>0.90</jacoco.coverage.lines>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.tecacet</groupId>
-			<artifactId>movie-model</artifactId>
+			<artifactId>movie-parser</artifactId>
 			<version>${movie.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.tecacet</groupId>
-			<artifactId>movie-parser</artifactId>
-			<version>${movie.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
+		</dependency>
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -41,9 +69,51 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco.version}</version>
+				<configuration>
+					<rules>
+						<rule>
+							<element>BUNDLE</element>
+							<limits>
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>LINE</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>${jacoco.coverage.lines}</minimum>
+								</limit>
+								<limit>
+									<counter>CLASS</counter>
+									<value>MISSEDCOUNT</value>
+									<maximum>0</maximum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+					<excludes>
+						<exclude>**/Main.*</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
