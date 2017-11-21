@@ -1,4 +1,4 @@
-package com.tecacet.movie.service;
+package com.tecacet.movie.service.memory;
 
 import java.util.Comparator;
 import java.util.List;
@@ -14,8 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tecacet.movie.model.Director;
 import com.tecacet.movie.model.Movie;
 import com.tecacet.movie.model.Person;
+import com.tecacet.movie.service.DirectorRatingService;
+import com.tecacet.movie.service.MovieService;
 
 /**
  * Implementation of the service that compares every director

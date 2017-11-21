@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.tecacet.movie.model.Director;
+
 public class DirectorTest {
 
 	@Test

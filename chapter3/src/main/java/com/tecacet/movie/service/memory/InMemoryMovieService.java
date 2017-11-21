@@ -1,4 +1,4 @@
-package com.tecacet.movie.service;
+package com.tecacet.movie.service.memory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import com.tecacet.movie.model.Genre;
 import com.tecacet.movie.model.Movie;
 import com.tecacet.movie.model.Person;
 import com.tecacet.movie.parser.MovieParser;
+import com.tecacet.movie.service.MovieService;
 
 /**
  * In Memory implementation of the MovieService

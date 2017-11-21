@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.tecacet.movie.config.ApplicationConfiguration;
-import com.tecacet.movie.service.Director;
+import com.tecacet.movie.model.Director;
 import com.tecacet.movie.service.DirectorRatingService;
 
 public class Main {
