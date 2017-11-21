@@ -6,12 +6,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.tecacet.movie.model.Director;
 import com.tecacet.movie.parser.MovieParser;
-import com.tecacet.movie.service.Director;
 import com.tecacet.movie.service.DirectorRatingService;
-import com.tecacet.movie.service.ExhaustiveDirectorRatingService;
 import com.tecacet.movie.service.InMemoryMovieService;
 import com.tecacet.movie.service.MovieService;
+import com.tecacet.movie.service.memory.ExhaustiveDirectorRatingService;
 
 public class Main {
 	

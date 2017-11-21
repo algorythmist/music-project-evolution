@@ -1,4 +1,4 @@
-package com.tecacet.movie.service;
+package com.tecacet.movie.service.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+
+import com.tecacet.movie.model.Director;
 
 public class DirectorTest {
 

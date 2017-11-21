@@ -8,7 +8,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.tecacet.movie.model.Director;
 import com.tecacet.movie.parser.MovieParser;
+import com.tecacet.movie.service.memory.ExhaustiveDirectorRatingService;
 
 public class ExhaustiveDirectorRatingServiceTest {
 
