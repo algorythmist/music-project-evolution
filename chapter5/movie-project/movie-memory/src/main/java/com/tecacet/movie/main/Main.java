@@ -16,7 +16,7 @@ public class Main {
 
 		ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 		DirectorRatingService ratingService = context.getBean(DirectorRatingService.class);
-		List<Director> directors = ratingService.findTopDirectors(10);
+		List<? extends Director> directors = ratingService.findTopDirectors(10);
 		directors.forEach(d -> System.err.println(d));
 	}
 }

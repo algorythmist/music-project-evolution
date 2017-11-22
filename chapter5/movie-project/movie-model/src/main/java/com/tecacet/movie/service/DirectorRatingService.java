@@ -6,6 +6,6 @@ import com.tecacet.movie.domain.Director;
 
 public interface DirectorRatingService {
 
-	List<Director> findTopDirectors(int top);
+	List<? extends Director> findTopDirectors(int top);
 	
 }

@@ -26,7 +26,7 @@ public class SerialDirectorRatingServiceTest {
 	@Test
 	public void findTopDirectors() throws IOException {
 
-		List<Director> directors = serialDirectorRatingService.findTopDirectors(10);
+		List<? extends Director> directors = serialDirectorRatingService.findTopDirectors(10);
 		assertEquals(10, directors.size());
 
 		// Test that directors are in the correct order
