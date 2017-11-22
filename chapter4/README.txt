@@ -1,0 +1,1 @@
+- Multimodule maven project
