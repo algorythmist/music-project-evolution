@@ -18,15 +18,15 @@ import com.tecacet.movie.service.DirectorRatingService;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class })
-public class DirectorRatingServiceTest {
+public class SerialDirectorRatingServiceTest {
 
 	@Autowired
-	private DirectorRatingService ratingService;
+	private DirectorRatingService serialDirectorRatingService;
 
 	@Test
 	public void findTopDirectors() throws IOException {
 
-		List<Director> directors = ratingService.findTopDirectors(10);
+		List<Director> directors = serialDirectorRatingService.findTopDirectors(10);
 		assertEquals(10, directors.size());
 
 		// Test that directors are in the correct order

@@ -27,13 +27,13 @@ import com.tecacet.movie.service.MovieService;
  *
  */
 @Service
-public class ExhaustiveDirectorRatingService implements DirectorRatingService {
+public class SerialDirectorRatingService implements DirectorRatingService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final MovieService movieService;
 
 	@Autowired
-	public ExhaustiveDirectorRatingService(MovieService movieService) {
+	public SerialDirectorRatingService(MovieService movieService) {
 		super();
 		this.movieService = movieService;
 	}

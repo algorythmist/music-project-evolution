@@ -15,6 +15,7 @@ import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.tecacet.movie.domain.Director;
 import com.tecacet.movie.domain.Movie;
@@ -22,6 +23,7 @@ import com.tecacet.movie.domain.Person;
 import com.tecacet.movie.service.DirectorRatingService;
 import com.tecacet.movie.service.MovieService;
 
+@Service
 public class ParallelExecutorDirectorRatingService implements DirectorRatingService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,8 +49,7 @@ public class ParallelExecutorDirectorRatingService implements DirectorRatingServ
 		try {
 			executorService.awaitTermination(1, TimeUnit.MINUTES);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Threadpool terminated unexpectedly", e);
 		}
 
 		return toList(priorityQueue, top);
