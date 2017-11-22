@@ -15,9 +15,15 @@ public class EntityGenre implements Genre {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	private String name;
 
-	private final String name;
-
+	//for HB
+	@SuppressWarnings("unused")
+	private EntityGenre() {
+		
+	}
+	
 	public EntityGenre(String name) {
 		super();
 		this.name = name;

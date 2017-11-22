@@ -11,9 +11,13 @@ import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.tecacet.movie.domain.Director;
 import com.tecacet.movie.domain.Movie;
 import com.tecacet.movie.domain.Person;
+import com.tecacet.movie.service.DirectorRatingService;
 import com.tecacet.movie.service.MovieService;
 
 /**
@@ -22,12 +26,14 @@ import com.tecacet.movie.service.MovieService;
  * @author dimitri
  *
  */
-public class ExhaustiveDirectorRatingService implements DirectorRatingService {
+@Service
+public class SerialDirectorRatingService implements DirectorRatingService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final MovieService movieService;
 
-	public ExhaustiveDirectorRatingService(MovieService movieService) {
+	@Autowired
+	public SerialDirectorRatingService(MovieService movieService) {
 		super();
 		this.movieService = movieService;
 	}
@@ -47,7 +53,7 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 				continue;
 			}
 			Set<String> genres = getGenres(movies);
-			Director director = new Director(person.getName(), opt.getAsDouble(), movies.size(), genres);
+			Director director = new Director(person.getName(), opt.getAsDouble(),movies.size(), genres);
 			directors.add(director);
 		}
 		return toList(directors, top);
@@ -63,8 +69,7 @@ public class ExhaustiveDirectorRatingService implements DirectorRatingService {
 	}
 
 	private Set<String> getGenres(List<? extends Movie> movies) {
-		return movies.stream().map(m -> m.getGenres()).flatMap(gl -> gl.stream()).map(g -> g.getName())
-				.collect(Collectors.toSet());
+		return movies.stream().map(m -> m.getGenres()).flatMap(gl -> gl.stream()).map(g -> g.getName()).collect(Collectors.toSet());
 	}
 
 }

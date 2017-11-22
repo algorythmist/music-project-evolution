@@ -6,27 +6,25 @@ import static org.junit.Assert.assertFalse;
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.tecacet.movie.config.ApplicationConfiguration;
 import com.tecacet.movie.domain.Genre;
 import com.tecacet.movie.domain.Movie;
 import com.tecacet.movie.domain.Person;
-import com.tecacet.movie.parser.JsonMovie;
-import com.tecacet.movie.parser.MovieParser;
 import com.tecacet.movie.service.MovieService;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes= {ApplicationConfiguration.class})
 public class InMemoryMovieServiceTest {
-
-	private static final MovieParser movieParser = new MovieParser();
-	private static MovieService movieService;
-
-	@BeforeClass
-	public static void setUp() throws IOException {
-		List<JsonMovie> movies = movieParser.parse("moviedata.json");
-		movieService = new InMemoryMovieService(movies);
-	}
-
+	
+	@Autowired
+	private MovieService movieService;
+	
 	@Test
 	public void getAllMovies() {
 		List<? extends Movie> movies = movieService.getAllMovies();

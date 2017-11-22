@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tecacet.movie.domain.Genre;
 import com.tecacet.movie.domain.Movie;
@@ -23,6 +25,7 @@ import com.tecacet.movie.service.MovieService;
  * @author dimitri
  *
  */
+@Service
 public class InMemoryMovieService implements MovieService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -83,7 +86,6 @@ public class InMemoryMovieService implements MovieService {
 			return name;
 		}
 
-		@Override
 		public boolean isActor() {
 			return isActor;
 		}
@@ -92,7 +94,6 @@ public class InMemoryMovieService implements MovieService {
 			this.isActor = isActor;
 		}
 
-		@Override
 		public boolean isDirector() {
 			return isDirector;
 		}
@@ -119,11 +120,12 @@ public class InMemoryMovieService implements MovieService {
 
 	}
 	
+	@Autowired
 	public InMemoryMovieService(MovieParser movieParser) throws IOException {
 		this(movieParser.parse("moviedata.json"));
 	}
 
-	public InMemoryMovieService(List<? extends Movie> allMovies) {
+	private InMemoryMovieService(List<? extends Movie> allMovies) {
 		logger.info("Registering {} movies with the service", allMovies.size());
 		for (Movie movie : allMovies) {
 			movies.add(movie);
@@ -141,16 +143,16 @@ public class InMemoryMovieService implements MovieService {
 	}
 
 	private void registerDirectors(Movie movie) {
-		for (String name : movie.getDirectors()) {
-			EnrichedPerson person = findPerson(name);
+		for (Person p : movie.getDirectors()) {
+			EnrichedPerson person = findPerson(p.getName());
 			person.addMovieDirected(movie);
 			person.setDirector(true);
 		}
 	}
 
 	private void registerActors(Movie movie) {
-		for (String name : movie.getActors()) {
-			EnrichedPerson person = findPerson(name);
+		for (Person p : movie.getActors()) {
+			EnrichedPerson person = findPerson(p.getName());
 			person.addMovieActed(movie);
 			person.setActor(true);
 		}

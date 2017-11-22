@@ -14,11 +14,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.tecacet.movie.jpa.config.PersistanceConfiguration;
+import com.tecacet.movie.jpa.config.PersistenceConfiguration;
 import com.tecacet.movie.jpa.model.EntityGenre;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { PersistanceConfiguration.class })
+@ContextConfiguration(classes = { PersistenceConfiguration.class })
 @Transactional
 public class GenreRepositoryTest {
 
@@ -28,13 +28,17 @@ public class GenreRepositoryTest {
 	@Test
 	public void crudOperations() {
 
-		EntityGenre genre = new EntityGenre("Exreme Action");
+		String genreName = "Extreme Action";
+		EntityGenre genre = new EntityGenre(genreName);
 
 		genreRepository.save(genre);
 		assertTrue(genre.getId() > 0);
 
 		Optional<EntityGenre> found = genreRepository.findById(genre.getId());
-		assertEquals("Exreme Action", found.get().getName());
+		assertEquals(genreName, found.get().getName());
+		
+		found = genreRepository.findByNameIgnoreCase("extreme action");
+		assertEquals(genreName, found.get().getName());
 
 		List<EntityGenre> allGenres = genreRepository.findAll();
 		assertEquals(1, allGenres.size());

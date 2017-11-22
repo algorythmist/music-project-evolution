@@ -20,14 +20,14 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableJpaRepositories(basePackages = { "com.tecacet.movie.jpa.repository" })
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.tecacet.movie.jpa.service")
-public class PersistanceConfiguration {
+public class PersistenceConfiguration {
 
 	private static final String[] ENTITY_PACKAGES = { "com.tecacet.movie.jpa.model" };
 
 	@Bean(destroyMethod = "close")
 	public HikariDataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
-		hikariConfig.setJdbcUrl("jdbc:h2:file:./movies");
+		hikariConfig.setJdbcUrl("jdbc:h2:file:~/movies");
 		hikariConfig.setUsername("sa");
 		hikariConfig.setPassword("");
 		hikariConfig.setDriverClassName("org.h2.Driver");

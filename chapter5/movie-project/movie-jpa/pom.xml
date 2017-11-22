@@ -101,7 +101,7 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>${flyway-plugin.version}</version>
 				<configuration>
-					<url>jdbc:h2:file:./movies</url>
+					<url>jdbc:h2:file:~/movies</url>
 					<user>sa</user>
 				</configuration>
 			</plugin>

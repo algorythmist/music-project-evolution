@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.tecacet.movie.jpa.config.PersistanceConfiguration;
+import com.tecacet.movie.jpa.config.PersistenceConfiguration;
 import com.tecacet.movie.jpa.model.EntityPerson;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { PersistanceConfiguration.class })
+@ContextConfiguration(classes = { PersistenceConfiguration.class })
 @Transactional
 public class PersonRepositoryTest {
 
@@ -27,8 +27,8 @@ public class PersonRepositoryTest {
 	
 	@Test
 	public void test() {
-		EntityPerson person1 = new EntityPerson("Tom", false, true);
-		EntityPerson person2 = new EntityPerson("Dale", true, true);
+		EntityPerson person1 = new EntityPerson("Tom");
+		EntityPerson person2 = new EntityPerson("Dale");
 
 		personRepository.save(person1);
 		assertTrue(person1.getId() > 0);
