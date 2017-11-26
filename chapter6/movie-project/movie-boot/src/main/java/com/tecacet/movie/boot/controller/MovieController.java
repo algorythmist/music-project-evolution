@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import com.tecacet.movie.boot.domain.SimpleMovie;
 import com.tecacet.movie.domain.Movie;
 import com.tecacet.movie.jpa.model.EntityMovie;
 import com.tecacet.movie.jpa.repository.MovieRepository;
-
 
 @RestController
 @RequestMapping(value = "/movies")
@@ -40,10 +38,10 @@ public class MovieController {
 		Optional<? extends Movie> optional = movieRepository.findById(id);
 		return optional.orElse(null);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public Movie modify(@PathVariable long id, @RequestBody SimpleMovie movie) throws ResourceNotFoundException {
-		EntityMovie entityMovie =  movieRepository.findById(id).orElse(null);
+		EntityMovie entityMovie =  movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 		// copy attributes
 		BeanUtils.copyProperties(movie, entityMovie);
 		movieRepository.save(entityMovie);
@@ -56,6 +54,5 @@ public class MovieController {
 		movieRepository.save(entityMovie);
 		return entityMovie;
 	}
-
 
 }

@@ -70,7 +70,7 @@ public class GenreControllerIntegrationTest {
 		assertEquals(1, genres.size());
 	}
 
-	//TODO @Test
+	@Test
 	public void missingResource() {
 		Map<String, String> params = new HashMap<>();
 		params.put("name", "test2");
