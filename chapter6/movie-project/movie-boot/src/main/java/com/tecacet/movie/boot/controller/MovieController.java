@@ -1,61 +1,61 @@
 package com.tecacet.movie.boot.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tecacet.movie.boot.service.MovieFacade;
+import com.tecacet.movie.boot.domain.SimpleMovie;
 import com.tecacet.movie.domain.Movie;
-import com.tecacet.movie.jpa.service.DatabasePopulator;
-
-//TODO create movie
-//TODO delete movie
-//TODO findMovies where name like
-//TODO findMovies with actor name like
-//TODO findMovies with director name like
-//TODO find movies for director
-//TODO find movies for actor
+import com.tecacet.movie.jpa.model.EntityMovie;
+import com.tecacet.movie.jpa.repository.MovieRepository;
 
 
 @RestController
 @RequestMapping(value = "/movies")
 public class MovieController {
 
-	private final MovieFacade movieFacade;
-	private final DatabasePopulator databasePopulator;
+	private final MovieRepository movieRepository;
 
 	@Autowired
-	public MovieController(MovieFacade movieFacade, DatabasePopulator databasePopulator) {
+	public MovieController(MovieRepository movieRepository) {
 		super();
-		this.movieFacade = movieFacade;
-		this.databasePopulator = databasePopulator;
+		this.movieRepository = movieRepository;
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public List<? extends Movie> getAllMovies() {
-		return movieFacade.findAll();
+		return movieRepository.findAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Movie findMovieById(@PathVariable long id) {
-		Optional<? extends Movie> optional = movieFacade.findMovieById(id);
+		Optional<? extends Movie> optional = movieRepository.findById(id);
 		return optional.orElse(null);
 	}
-
-	/**
-	 * TODO hande exception
-	 * 
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/populate", method = RequestMethod.POST)
-	public void populateDatabase() throws IOException {
-		databasePopulator.loadMovies();
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public Movie modify(@PathVariable long id, @RequestBody SimpleMovie movie) throws ResourceNotFoundException {
+		EntityMovie entityMovie =  movieRepository.findById(id).orElse(null);
+		// copy attributes
+		BeanUtils.copyProperties(movie, entityMovie);
+		movieRepository.save(entityMovie);
+		return entityMovie;
 	}
+
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public Movie create(@RequestBody SimpleMovie movie) {
+		EntityMovie entityMovie = new EntityMovie(movie);
+		movieRepository.save(entityMovie);
+		return entityMovie;
+	}
+
 
 }

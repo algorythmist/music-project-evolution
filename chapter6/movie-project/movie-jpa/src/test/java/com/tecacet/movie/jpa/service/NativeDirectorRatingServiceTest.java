@@ -53,9 +53,9 @@ public class NativeDirectorRatingServiceTest {
 		}
 
 		Director director = directors.get(0);
-		assertEquals("Charles Chaplin", director.getName());
-		assertEquals(8.50, director.getRating(), 0.01);
-		assertEquals(4, director.getMovies());
+		assertEquals("Christopher Nolan", director.getName());
+		assertEquals(8.62, director.getRating(), 0.01);
+		assertEquals(6, director.getMovies());
 	}
 
 }
