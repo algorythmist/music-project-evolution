@@ -18,7 +18,7 @@ public class Main {
 	private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
 	public static void main(String[] args) throws IOException {
-
+		
 		MovieParser movieParser = new MovieParser();
 		MovieService movieService = new InMemoryMovieService(movieParser);
 		DirectorRatingService ratingService = new ExhaustiveDirectorRatingService(movieService);

@@ -20,6 +20,7 @@
 		<jacoco.version>0.7.9</jacoco.version>
 		<jacoco.coverage.lines>0.90</jacoco.coverage.lines>
 		<maven-javadoc.version>2.10.4</maven-javadoc.version>
+		<javadoc.opts>-Xdoclint:none</javadoc.opts>
 	</properties>
 
 	<dependencies>
@@ -53,7 +54,7 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
@@ -116,6 +117,9 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+							<additionalparam>${javadoc.opts}</additionalparam>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
