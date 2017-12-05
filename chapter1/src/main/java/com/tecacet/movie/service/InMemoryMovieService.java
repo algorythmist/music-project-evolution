@@ -3,9 +3,9 @@ package com.tecacet.movie.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import com.tecacet.movie.model.Genre;
@@ -22,8 +22,8 @@ import com.tecacet.movie.parser.MovieParser;
 public class InMemoryMovieService implements MovieService {
 
 	private final List<Movie> movies = new ArrayList<>();
-	private final Map<String, EnrichedPerson> personsByName = new TreeMap<>();
-	private final Map<String, EnrichedGenre> genresByName = new TreeMap<>();
+	private final Map<String, EnrichedPerson> personsByName = new LinkedHashMap<>();
+	private final Map<String, EnrichedGenre> genresByName = new LinkedHashMap<>();
 
 	private class EnrichedGenre implements Genre {
 		private final String name;
@@ -78,7 +78,7 @@ public class InMemoryMovieService implements MovieService {
 		}
 
 		public boolean isActor() {
-			return isActor;
+			return isActor; 
 		}
 
 		public void setActor(boolean isActor) {

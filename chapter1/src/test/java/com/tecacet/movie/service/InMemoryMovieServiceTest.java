@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,13 +43,16 @@ public class InMemoryMovieServiceTest {
 	public void getAllActors() {
 		List<Person> actors = movieService.getAllActors();
 		assertEquals(5265, actors.size());
-
 	}
 
 	@Test
 	public void getAllDirectors() {
 		List<Person> directors = movieService.getAllDirectors();
 		assertEquals(2333, directors.size());
+
+		List<Person> directorsWith3Movies = directors.stream()
+				.filter(d -> movieService.findMoviesWithDirector(d.getName()).size() >= 3).collect(Collectors.toList());
+		assertEquals(528, directorsWith3Movies.size());
 
 	}
 
@@ -81,5 +85,11 @@ public class InMemoryMovieServiceTest {
 		assertEquals(1, movies.size());
 		Movie movie = movies.get(0);
 		assertFalse(movie.getRating().isPresent());
+	}
+
+	@Test
+	public void findByTitleNotFound() {
+		List<Movie> movies = movieService.findByTitle("Nothing");
+		assertEquals(0, movies.size());
 	}
 }

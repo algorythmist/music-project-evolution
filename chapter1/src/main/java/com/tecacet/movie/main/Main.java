@@ -3,8 +3,8 @@ package com.tecacet.movie.main;
 import java.io.IOException;
 import java.util.List;
 
+import com.tecacet.movie.model.Director;
 import com.tecacet.movie.parser.MovieParser;
-import com.tecacet.movie.service.Director;
 import com.tecacet.movie.service.DirectorRatingService;
 import com.tecacet.movie.service.ExhaustiveDirectorRatingService;
 import com.tecacet.movie.service.InMemoryMovieService;

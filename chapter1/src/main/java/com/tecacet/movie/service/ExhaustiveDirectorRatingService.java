@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.tecacet.movie.model.Director;
 import com.tecacet.movie.model.Movie;
 import com.tecacet.movie.model.Person;
 

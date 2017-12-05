@@ -1,4 +1,4 @@
-package com.tecacet.movie.service;
+package com.tecacet.movie.model;
 
 import java.util.Set;
 
