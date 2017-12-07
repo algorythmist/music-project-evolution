@@ -24,7 +24,6 @@ private final EntityManager entityManager;
 			"having COUNT(m) > 2 " +
 			"order by AVG(m.rating) desc,  COUNT(m) desc";
 			
-	
 	@Autowired
 	public JPQLDirectorRatingService(EntityManager entityManager) {
 		super();
