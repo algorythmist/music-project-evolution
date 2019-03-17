@@ -16,6 +16,7 @@
 		<module>movie-parser</module>
 		<module>movie-memory</module>
 		<module>movie-jpa</module>
+		<module>movie-boot</module>
 	</modules>
 
 	<properties>
